@@ -12,9 +12,13 @@ package mdsimulation;
 public class Simulation {
     
     Particle[] particles;
+    long total_distant;
+    
+    
     
     public Simulation(Particle[] particles)
     {
         this.particles = particles;
+        
     }
 }
