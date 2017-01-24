@@ -5,6 +5,10 @@
  */
 package mdsimulation;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /**
  *
  * @author steventhompson
@@ -33,6 +37,11 @@ package mdsimulation;
         this.r = r;
         this.g = g;
         this.b = b;
+    }
+    
+    public void main(){
+     
+        
     }
     
 }
