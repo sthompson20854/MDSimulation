@@ -5,32 +5,49 @@
  */
 package mdsimulation;
 
+import java.util.PriorityQueue;
+import java.util.Comparator;
+
 /**
  *
  * @author steventhompson
  */
-public class Event {
+public class Event implements Comparable<Event> {
     
-   long time_event;
+   double time_event;
+   double delta_t;
    Particle particle;
    Particle other; 
-   double event_x;
-   double event_y;
+   double event_xp; //particles x at event
+   double event_yp; //particles y at event
+   double event_xo;//others x at event
+   double event_yo;//others y at event
+  
+    
    
   
    
-   public Event(long time_event, Particle particle, Particle other, double event_x, double event_y)
+   public Event(double time_event, Particle particle, Particle other,double delta_t)
    {
-       this.event_x = event_x;
-       this.event_y = event_y;
+      this.delta_t = delta_t;
        this.particle = particle;
        this.other = other;
        this.time_event = time_event;
        
-       
       
    }
    
+   public double get_time(){
+       return time_event;
+   }
 
-    
+    @Override
+    public int compareTo(Event o) {
+      return(int)(this.time_event - o.time_event);
+      
+    }
+   
+
 }
+    
+
