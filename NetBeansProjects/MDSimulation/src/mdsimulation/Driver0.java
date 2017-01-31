@@ -19,21 +19,22 @@ public class Driver0 {
     public static void readFile(String file) {
         try {
             Scanner sc = new Scanner(new File(file));
-            dimension1 = sc.nextInt();
+            dimension1 = sc.nextInt()+1;
             dimension2 = 9;
             particles = new Particle[dimension1];
             array = new double[dimension1][dimension2];
            
             while (sc.hasNext()) {
-                for (int row = 0; row < dimension1; row++) {
+                particles[0] = new Particle (0,0,0,0,0,0,0,0,0);
+                for (int row = 1; row < dimension1+1; row++) {
                     
                     for (int column = 0; column < dimension2; column++) {
                         array[row][column] = sc.nextDouble();
                         
-                  // System.out.print(array[row][column] + " ");
+            
                     }
                     
-                  // System.out.println(" ");
+                
                     particles[row] = new Particle (array[row][0],array[row][1],array[row][2],array[row][3],array[row][4],
                             array[row][5],array[row][6],array[row][7],array[row][8]);
                   
