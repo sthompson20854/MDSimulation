@@ -5,6 +5,7 @@ import java.io.*;
 import java.util.*;
 
 
+
 public class Driver0 {
     public static double[][] array;
     public static int dimension1, dimension2;
@@ -13,7 +14,11 @@ public class Driver0 {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        readFile("/Users/steventhompson/Desktop/input.txt");
+        
+       
+        readFile("/Users/steventhompson/Desktop/brownian.txt");
+      
+       
     }
 
     public static void readFile(String file) {
@@ -51,4 +56,6 @@ public class Driver0 {
         
         Simulation s1 = new Simulation(particles);
     }
-}
+       
+    }
+    
