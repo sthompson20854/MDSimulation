@@ -11,7 +11,7 @@ import java.util.*;
  *
  * @author steventhompson
  */
-public class Simulation {
+public class Simulation{
     
     public static Particle[] particles;
     long total_distant;
@@ -41,6 +41,7 @@ public class Simulation {
    double d;
    Particle particle;
    Particle other; 
+   StdDraw StdDraw;
    public static double[][] array;
    public static int dimension1, dimension2;
  public PriorityQueue<Event> pq1 = new PriorityQueue<Event>();
@@ -48,7 +49,34 @@ public class Simulation {
     
     public Simulation(Particle[] particles)
     {
-       while(true){ 
+       while(true){
+       
+          StdDraw.setScale(0, 1);
+        StdDraw.enableDoubleBuffering(); 
+       // while(pq1.isEmpty() == false)
+       // {
+            for (current_time = 0.0; true; current_time += .0002)
+        {
+            StdDraw.clear();
+            for(int i = 1; i < particles.length; i++)
+        {
+           particle = particles[i];
+          particle.rx = particle.rx + current_time*particle.vx;
+          particle.ry = particle.ry + current_time*particle.vy;
+            StdDraw.filledCircle(particle.rx, particle.ry, particle.radius);
+           // StdDraw.filledCircle(-x, -y, 0.05);
+        }
+            StdDraw.show();
+             
+           // StdDraw.pause(20);
+        
+        
+        
+    
+
+      
+           
+           
         this.particles = particles;
          
         for(int i = 1; i < particles.length; i++)
@@ -59,18 +87,18 @@ public class Simulation {
            delta_t = y_wall(particle);
            event_time = current_time + delta_t;
           
-       if(event_time < 99999999 && event_time > 0){
+       if(event_time < 99999999){ //if less then infinity
        
-       
+       other.mass = 1;
      Event a = new Event(event_time, particle, other, delta_t);
       pq1.add(a);
        }
             
        delta_t = x_wall(particle);
               event_time = current_time + delta_t;
-       if(event_time < 99999999 && event_time > 0){
-       //System.out.println("returned ex =  " + event_time);
-       
+       if(event_time < 99999999){ //if less then infinity
+      
+       other.mass = 2;
      Event a = new Event(event_time, particle, other, delta_t);
       pq1.add(a);
        }
@@ -83,7 +111,7 @@ public class Simulation {
       
        event_time = current_time + delta_t;
        if(event_time < 99999999){
-       System.out.println("returned e =  " + event_time);
+       //System.out.println("returned e =  " + event_time);
        
      Event a = new Event(event_time, particle, other, delta_t);
       pq1.add(a);
@@ -91,25 +119,34 @@ public class Simulation {
         }
               
       }
-         for(Event a:pq1){
+       /*  for(Event a:pq1){
             System.out.println(a.get_time());
-        }
+        } */
         
          Event e;
-          e = pq1.poll();
+          
+         e = pq1.poll();
+         while(e.delta_t < current_time)
+         {
           if(e.other.rx == 0)
           {
-            wall_math(e.delta_t, e.particle);
+            wall_math(e.delta_t, e.particle, e.other.mass);
           }
           else
          event_math(e.delta_t, e.particle, e.other);
+          e = pq1.poll();
+          
+         }
+         pq1.clear();
           
       
-        current_time++;
-        System.out.println(current_time + "/n");
        }
-        
+       }
     }
+       
+       
+        
+    
     
      public double Math (Particle particle, Particle other)
     {
@@ -202,12 +239,18 @@ public class Simulation {
            
            
        }
-        public void wall_math(double delta_t, Particle particle)
+        public void wall_math(double delta_t, Particle particle, double wall)
         {
             this.particle = particle;
+            this.delta_t = delta_t;
+            double flip = wall;
            particle.rx = particle.rx + delta_t*particle.vx;
            particle.ry = particle.ry + delta_t*particle.vy;
+            if(flip == 1)//if y wall
+                particle.vy = -(particle.vy);
             
+            if(flip ==2 ) //if x wall
+                particle.vx = -(particle.vx);
             
         }
     
